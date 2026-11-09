@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
-import 'presentation/home_page/home_page.dart';
+import 'presentation/search_page/issue_search_page.dart';
 
 void main() {
-  runApp(const StoreApp());
+  runApp(const LabApp());
 }
 
-class StoreApp extends StatelessWidget {
-  const StoreApp({super.key});
+class LabApp extends StatelessWidget {
+  const LabApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      title: 'Лабораторная работа №5',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        useMaterial3: true,
+      ),
+      home: const IssueSearchPage(),
     );
   }
 }
