@@ -1,6 +1,9 @@
-import '../../domain/models/issue_statistics.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-// DTO mirrors one JSON row returned by /issues/statistics.
+part 'issue_statistics_dto.g.dart';
+
+// One object in the JSON array returned by the backend statistics endpoint.
+@JsonSerializable(createToJson: false)
 class IssueStatisticsDto {
   final int milestoneId;
   final String milestoneTitle;
@@ -16,23 +19,7 @@ class IssueStatisticsDto {
     required this.issueCount,
   });
 
-  factory IssueStatisticsDto.fromJson(Map<String, dynamic> json) {
-    return IssueStatisticsDto(
-      milestoneId: (json['milestoneId'] as num).toInt(),
-      milestoneTitle: json['milestoneTitle'] as String,
-      status: json['status'] as String,
-      priority: json['priority'] as String,
-      issueCount: (json['issueCount'] as num).toInt(),
-    );
-  }
-
-  IssueStatistics toDomain() {
-    return IssueStatistics(
-      milestoneId: milestoneId,
-      milestoneTitle: milestoneTitle,
-      status: status,
-      priority: priority,
-      issueCount: issueCount,
-    );
-  }
+  // Generated factory reads the JSON keys and fills the fields above.
+  factory IssueStatisticsDto.fromJson(Map<String, dynamic> json) =>
+      _$IssueStatisticsDtoFromJson(json);
 }

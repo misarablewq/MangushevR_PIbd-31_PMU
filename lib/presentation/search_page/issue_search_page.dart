@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../data/repositories/issue_repository_impl.dart';
+import '../../data/repositories/issue_repository.dart';
 import '../../domain/models/issue_statistics.dart';
-import '../../domain/repositories/issue_repository.dart';
+import '../../domain/repositories/api_interface.dart';
 
 class IssueSearchPage extends StatefulWidget {
   const IssueSearchPage({super.key});
@@ -12,7 +12,7 @@ class IssueSearchPage extends StatefulWidget {
 }
 
 class _IssueSearchPageState extends State<IssueSearchPage> {
-  final IssueRepository _repository = IssueRepositoryImpl();
+  final ApiInterface _repository = IssueRepository();
 
   String _selectedStatus = 'OPEN';
   late Future<List<IssueStatistics>> _searchResult;
@@ -20,12 +20,12 @@ class _IssueSearchPageState extends State<IssueSearchPage> {
   @override
   void initState() {
     super.initState();
-    _searchResult = _repository.searchByStatus(_selectedStatus);
+    _searchResult = _repository.loadData(status: _selectedStatus);
   }
 
   void _search() {
     setState(() {
-      _searchResult = _repository.searchByStatus(_selectedStatus);
+      _searchResult = _repository.loadData(status: _selectedStatus);
     });
   }
 
